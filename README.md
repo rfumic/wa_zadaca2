@@ -1,24 +1,12 @@
-# wa_zadaca2
+# Web Aplikacije Zadaća 2 **_(WA-002)_**
 
-## Project setup
-```
-npm install
-```
+## Autor
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- **Roko Fumić** (rfumic@unipu.hr)
+- **JMBAG** - 0303092348
+- **Kolegij** - Web Aplikacije
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Opis zadatka
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Tvoj zadatak je poslati zahtjev u obliku imena na sva tri endpointa i na temelju tog zahtjeva
+prikazati sve podatke u jednoj tablici.

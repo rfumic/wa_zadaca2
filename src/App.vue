@@ -2,7 +2,7 @@
   <v-app>
     <v-card width="1000" class="mx-auto mt-10 px-5">
       <v-card-title>
-        <h1 class="display-1 mx-auto">{{ unos ? unos : "Promjeni me" }}</h1>
+        <h1 class="display-1 mx-auto">Prikaz podataka s 3 API endpointa</h1>
       </v-card-title>
       <v-text-field
         v-model="unos"
@@ -24,6 +24,7 @@ export default {
 
   computed: {
     headers() {
+      // Headeri za tablicu
       return [
         { text: "Ime", value: "ime" },
         { text: "Drzave i Vjerojatnosti", value: "drzava" },
@@ -38,8 +39,36 @@ export default {
   }),
   methods: {
     async getData() {
-      console.log("Pozvano");
-      console.log(this.unos);
+      try {
+        // Dohvat Spola
+        let response = await fetch(
+          "https://api.genderize.io?name=" + this.unos
+        );
+        let result = await response.json();
+        const spol = result.gender + " " + result.probability * 100 + "%";
+
+        // Dohvat godina
+        response = await fetch("https://api.agify.io?name=" + this.unos);
+        result = await response.json();
+        const godine = result.age;
+
+        // Dohvat drzave
+        response = await fetch("https://api.nationalize.io?name=" + this.unos);
+        result = await response.json();
+        const drzava = `${result.country[0].country_id} ${result.country[0].probability}, 
+        ${result.country[1].country_id} ${result.country[1].probability},
+        ${result.country[2].country_id} ${result.country[2].probability}`;
+
+        // Unos u podaci array
+        this.podaci.push({
+          ime: this.unos,
+          godine: godine,
+          spol: spol,
+          drzava: drzava,
+        });
+      } catch (err) {
+        console.error(err);
+      }
     },
   },
 };
